@@ -7,3 +7,6 @@
 
 QuickSheet UnityPackage下載：
 https://github.com/L1247/Unity-QuickSheet-ByEXCEL/blob/master/QuickSheet.unitypackage?raw=true
+
+如果下載此專案後編譯錯誤
+請將QuickSheet資料夾刪除並 重新導入 QuickSheet UnityPackage進入專案

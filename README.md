@@ -10,3 +10,6 @@ https://github.com/L1247/Unity-QuickSheet-ByEXCEL/blob/master/QuickSheet.unitypa
 
 如果下載此專案後編譯錯誤
 請將QuickSheet資料夾刪除並 重新導入 QuickSheet UnityPackage進入專案
+
+本程式碼Youtube影片步驟教學
+https://youtu.be/v7feTtS9JvY

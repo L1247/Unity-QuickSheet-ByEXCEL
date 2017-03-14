@@ -1,5 +1,5 @@
 ﻿# Unity-QuickSheet-ByEXCEL
-使用kimsama日本作者製作的Unity-QuickSheet插件加以改良
+使用kimsama南韓作者製作的Unity-QuickSheet插件加以改良
 
 參考自此Blog：http://kimsama.github.io/excel-howto/
 

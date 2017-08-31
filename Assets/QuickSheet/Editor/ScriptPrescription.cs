@@ -7,18 +7,20 @@
 ///////////////////////////////////////////////////////////////////////////////
 using System;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Object = UnityEngine.Object;
 
-namespace UnityEditor
+namespace UnityQuickSheet
 {
     [Serializable]
     public class ScriptPrescription
     {
         public string className               = string.Empty;
+        public string spreadsheetName         = string.Empty;
         public string worksheetClassName      = string.Empty; // used for ScriptableObject class name.
         public string dataClassName           = string.Empty;
         public string assetFileCreateFuncName = string.Empty;
@@ -29,14 +31,23 @@ namespace UnityEditor
         public string assetPostprocessorClass = string.Empty;
 
         public MemberFieldData[] memberFields;
-        public Dictionary<string, string> m_StringReplacements = new Dictionary<string, string> ();
+
+        /// <summary>
+        /// Reserved for future usage to make it easy for explicitly converting.
+        /// </summary>
+        public Dictionary<string, string> mStringReplacements = new Dictionary<string, string> ();
     }
     
+    /// <summary>
+    /// Represent type of an each cell.
+    /// </summary>
     public enum CellType
     {
         Undefined,
         String,
+        Short,
         Int,
+        Long,
         Float,
         Double,
         Enum,
@@ -67,8 +78,12 @@ namespace UnityEditor
                 {
                 case CellType.String:
                     return "string";
+                case CellType.Short:
+                    return "short";
                 case CellType.Int:
                     return "int";
+                case CellType.Long:
+                    return "long";
                 case CellType.Float:
                     return "float";
                 case CellType.Double:
@@ -101,6 +116,8 @@ namespace UnityEditor
 
                 if (string.Compare(typedef, "integer") == 0)
                     type = CellType.Int;
+                if (string.Compare(typedef, "long") == 0)
+                    type = CellType.Long;
                 else if (string.Compare(typedef,"string") == 0)
                     type = CellType.String;
                 else if (string.Compare(typedef, "float") == 0)

@@ -4,49 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using UnityQuickSheet;
+using System.Linq;
 
 ///
 /// !!! Machine generated code !!!
 ///
 [CustomEditor(typeof(CharacterCC))]
 public class CharacterCCEditor : BaseExcelEditor<CharacterCC>
-{	
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        
-        CharacterCC data = target as CharacterCC;
-        
-        databaseFields = ExposeProperties.GetProperties(data);
-        
-        foreach(CharacterCCData e in data.dataArray)
-        {
-            dataFields = ExposeProperties.GetProperties(e);
-            pInfoList.Add(dataFields);
-        }
-    }
-    
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        
-        //DrawDefaultInspector();
-        if (GUI.changed)
-        {
-            pInfoList.Clear();
-            
-            CharacterCC data = target as CharacterCC;
-            foreach(CharacterCCData e in data.dataArray)
-            {
-                dataFields = ExposeProperties.GetProperties(e);
-                pInfoList.Add(dataFields);
-            }
-            
-            EditorUtility.SetDirty(target);
-            Repaint();
-        }
-    }
-    
+{	    
     public override bool Load()
     {
         CharacterCC targetData = target as CharacterCC;
@@ -61,7 +27,7 @@ public class CharacterCCEditor : BaseExcelEditor<CharacterCC>
         if (query != null && query.IsValid())
         {
             targetData.dataArray = query.Deserialize<CharacterCCData>().ToArray();
-			
+            targetData.dataList = query.Deserialize<CharacterCCData>();
             EditorUtility.SetDirty(targetData);
             AssetDatabase.SaveAssets();
             return true;

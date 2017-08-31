@@ -8,6 +8,7 @@ public class DataPool  {
     public static void f_InitPool ()
     {
         m_CharacterDT = Resources.Load<CharacterCC>( "ExcelData/CharacterCC" );
+        Debug.Log( m_CharacterDT.dataList.Count );
     }
     
 }

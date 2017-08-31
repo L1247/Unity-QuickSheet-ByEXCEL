@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace UnityEditor
+namespace UnityQuickSheet
 {
     /// <summary>
     /// A class for various setting to import google spreadsheet data and generated related script files.
@@ -42,11 +42,11 @@ namespace UnityEditor
         /// <summary>
         /// A menu item which create a 'GoogleMachine' asset file.
         /// </summary>
-        [MenuItem("Assets/Create/QuickSheet/Tools/Goolgle")]
+        [MenuItem("Assets/Create/QuickSheet/Tools/Google")]
         public static void CreateGoogleMachineAsset()
         {
             GoogleMachine inst = ScriptableObject.CreateInstance<GoogleMachine>();
-            string path = CustomAssetUtility.GetUniqueAssetPathNameOrFallback("New GoogleMachine.asset");
+            string path = CustomAssetUtility.GetUniqueAssetPathNameOrFallback(ImportSettingFilename);
             AssetDatabase.CreateAsset(inst, path);
             AssetDatabase.SaveAssets();
             Selection.activeObject = inst;

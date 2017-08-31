@@ -1,5 +1,4 @@
-
-///////////////////////////////////////////////////////////////////////////////
+﻿///////////////////////////////////////////////////////////////////////////////
 ///
 /// ExcelMachine.cs
 /// 
@@ -7,8 +6,10 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
+using UnityEditor;
+using System.Collections;
 
-namespace UnityEditor
+namespace UnityQuickSheet
 {
     /// <summary>
     /// A class for various setting to read excel file and generated related script files.
@@ -41,7 +42,7 @@ namespace UnityEditor
         protected new void OnEnable()
         {
             base.OnEnable();
-            
+
             TemplatePath = excelTemplatePath;
         }
 
@@ -52,11 +53,10 @@ namespace UnityEditor
         public static void CreateScriptMachineAsset()
         {
             ExcelMachine inst = ScriptableObject.CreateInstance<ExcelMachine>();
-            string path = CustomAssetUtility.GetUniqueAssetPathNameOrFallback("New ExcelMachine.asset");
+            string path = CustomAssetUtility.GetUniqueAssetPathNameOrFallback(ImportSettingFilename);
             AssetDatabase.CreateAsset(inst, path);
             AssetDatabase.SaveAssets();
             Selection.activeObject = inst;
         }
-
     }
 }

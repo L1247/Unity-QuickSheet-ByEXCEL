@@ -6,42 +6,41 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityEditor
+namespace UnityQuickSheet
 {
+    /// <summary>
+    /// A class which represents column header on the worksheet.
+    /// </summary>
     [System.Serializable]
-    public class HeaderColumn
+    public class ColumnHeader
     {
         public CellType type;
         public string name;
         public bool isEnable;
         public bool isArray;
-        public HeaderColumn nextArrayItem;
+        public ColumnHeader nextArrayItem;
 
         // used to order columns by ascending. (only need on excel-plugin)
         public int OrderNO { get; set; }
     }
 
+    /// <summary>
+    /// A class which stores various settings for a worksheet which is imported.
+    /// </summary>
     public class BaseMachine : ScriptableObject
     {
+        protected readonly static string ImportSettingFilename = "New Import Setting.asset";
 
-        [ExposeProperty]
+        [SerializeField]
+        private string templatePath = "QuickSheet/Templates";
         public string TemplatePath
         {
             get { return templatePath; }
             set { templatePath = value; }
-        }
-
-        [SerializeField]
-        private string templatePath = "QuickSheet/Templates";
-
-        [ExposeProperty]
-        public string RuntimeClassPath
-        {
-            get { return scriptFilePath; }
-            set { scriptFilePath = value; }
         }
 
         /// <summary>
@@ -49,12 +48,10 @@ namespace UnityEditor
         /// </summary>
         [SerializeField]
         private string scriptFilePath;
-
-        [ExposeProperty]
-        public string EditorClassPath
+        public string RuntimeClassPath
         {
-            get { return editorScriptFilePath; }
-            set { editorScriptFilePath = value; }
+            get { return scriptFilePath; }
+            set { scriptFilePath = value; }
         }
 
         /// <summary>
@@ -62,21 +59,14 @@ namespace UnityEditor
         /// </summary>
         [SerializeField]
         private string editorScriptFilePath;
+        public string EditorClassPath
+        {
+            get { return editorScriptFilePath; }
+            set { editorScriptFilePath = value; }
+        }
 
-        //[ExposeProperty]
-        //public string DataFilePath
-        //{
-        //    get { return dataFilePath; }
-        //    set { dataFilePath = value; }
-        //}
-
-        /// <summary>
-        /// path the created asset file will be located.
-        /// </summary>
-        //[SerializeField]
-        //private string dataFilePath;
-
-        [ExposeProperty]
+        [SerializeField]
+        private string sheetName;
         public string SpreadSheetName
         {
             get { return sheetName; }
@@ -84,37 +74,32 @@ namespace UnityEditor
         }
 
         [SerializeField]
-        private string sheetName;
-
-        [ExposeProperty]
+        private string workSheetName;
         public string WorkSheetName
         {
             get { return workSheetName; }
             set { workSheetName = value; }
         }
 
-        [SerializeField]
-        private string workSheetName;
-
         [System.NonSerialized]
         public bool onlyCreateDataClass = false;
 
-        public List<HeaderColumn> HeaderColumnList
+        public List<ColumnHeader> ColumnHeaderList
         {
-            get { return headerColumnList; }
-            set { headerColumnList = value;}
+            get { return columnHeaderList; }
+            set { columnHeaderList = value; }
         }
 
         [SerializeField]
-        protected List<HeaderColumn> headerColumnList;
+        protected List<ColumnHeader> columnHeaderList;
 
         /// <summary>
         /// Return true, if the list is instantiated and has any its item more than one.
         /// </summary>
         /// <returns></returns>
-        public bool HasHeadColumn()
+        public bool HasColumnHeader()
         {
-            if (headerColumnList != null && headerColumnList.Count > 0)
+            if (columnHeaderList != null && columnHeaderList.Count > 0)
                 return true;
 
             return false;
@@ -125,8 +110,8 @@ namespace UnityEditor
 
         protected void OnEnable()
         {
-            if (headerColumnList == null)
-                headerColumnList = new List<HeaderColumn>();
+            if (columnHeaderList == null)
+                columnHeaderList = new List<ColumnHeader>();
         }
 
         /// <summary>

@@ -28,15 +28,10 @@ namespace GDataDB {
             var docService = new DocumentsService("database");
             docService.RequestFactory = requestFactory;
             
-            //@kims
-            //docService.setUserCredentials(username, password);
             documentService = docService;
              
             var ssService = new SpreadsheetsService("database");
 
-            //@kims
-            //ssService.setUserCredentials(username, password);
-            
             ssService.RequestFactory = requestFactory;
             spreadsheetService = ssService;
         }
@@ -51,40 +46,50 @@ namespace GDataDB {
             }
         }
 
-        public IDatabase GetDatabase(string name) {
-            /*
-            var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name });
-            if (feed.Entries.Count == 0)
-                return null;
-            return new Database(this, feed.Entries[0]);
-             */
-            Google.GData.Spreadsheets.SpreadsheetQuery query = new Google.GData.Spreadsheets.SpreadsheetQuery();
-
-            // Make a request to the API and get all spreadsheets.
-            SpreadsheetsService service = spreadsheetService as SpreadsheetsService;
-            SpreadsheetFeed feed = service.Query(query);
-            
-            if (feed.Entries.Count == 0)
+        /// <summary>
+        /// @kims 2017.02.09. Added exception handling to smoothly handle abnormal error.
+        ///                   If oauth2 setting does not correctly done in the GoogleDataSetting.asset file or missing, 
+        ///                   you will get the 'Null reference object' error. 
+        /// @kims 2016.08.09. Added second parameter to pass error message by reference.
+        /// </summary>
+        /// <returns>Null, if any error has been occured.</returns>
+        public IDatabase GetDatabase(string name, ref string error) 
+        {
+            try
             {
-                //Debug.Log("There are no spreadsheets in your docs.");
+                Google.GData.Spreadsheets.SpreadsheetQuery query = new Google.GData.Spreadsheets.SpreadsheetQuery();
+
+                // Make a request to the API and get all spreadsheets.
+                SpreadsheetsService service = spreadsheetService as SpreadsheetsService;
+
+                SpreadsheetFeed feed = service.Query(query);
+
+                if (feed.Entries.Count == 0)
+                {
+                    error = @"There are no spreadsheets in your docs.";
+                    return null;
+                }
+
+                AtomEntry spreadsheet = null;
+                foreach (AtomEntry sf in feed.Entries)
+                {
+                    if (sf.Title.Text == name)
+                        spreadsheet = sf;
+                }
+
+                if (spreadsheet == null)
+                {
+                    error = @"There is no such spreadsheet with such title in your docs.";
+                    return null;
+                }
+
+                return new Database(this, spreadsheet);
+            }
+            catch(Exception e)
+            {
+                error = e.Message;
                 return null;
             }
-
-            //SpreadsheetEntry spreadsheet = null;
-            AtomEntry spreadsheet = null;
-            foreach (AtomEntry sf in feed.Entries)
-            {
-                if (sf.Title.Text == name)
-                    spreadsheet = sf;
-            }
-
-            if (spreadsheet == null)
-            {
-                //Debug.Log("There is no such spreadsheet with such title in your docs.");
-                return null;
-            }
-
-            return new Database(this, spreadsheet);
         }
     }
 }

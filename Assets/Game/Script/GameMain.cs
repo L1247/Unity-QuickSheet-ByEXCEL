@@ -5,7 +5,7 @@ public class GameMain : MonoBehaviour {
     // Use this for initialization
     void Start () {
         DataPool.f_InitPool();
-        CharacterCC_Data = DataPool.m_CharacterDT.CharacterCCDataList;
+        CharacterCC_Data = DataPool.m_CharacterDT.dataList;
         //印出JOHN CENA的初始角色等級
         print( CharacterCC_Data.Find( name => name.NAME == "JOHN CENA" ).LV );
         //印出後來增加的人物的STR

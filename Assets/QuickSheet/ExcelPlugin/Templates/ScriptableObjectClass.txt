@@ -13,30 +13,15 @@ using System.Collections.Generic;
 public class $ClassName : ScriptableObject 
 {	
     [HideInInspector] [SerializeField] 
-    public string sheetName = "";
+    public string SheetName = "";
     
     [HideInInspector] [SerializeField] 
-    public string worksheetName = "";
-    
-    [ExposeProperty]
-    public string SheetName 
-    {
-        get { return sheetName; }
-        set { sheetName = value;}
-    }
-    
-    [ExposeProperty]
-    public string WorksheetName
-    {
-        get { return worksheetName; }
-        set { worksheetName = value;}
-    }
+    public string WorksheetName = "";
     
     // Note: initialize in OnEnable() not here.
     public $DataClassName[] dataArray;
+    public List<$DataClassName> dataList;
     
-	public List<$DataClassName> $DataClassNameList;
-
     void OnEnable()
     {		
 //#if UNITY_EDITOR
@@ -49,7 +34,7 @@ public class $ClassName : ScriptableObject
         // 		
         if (dataArray == null)
             dataArray = new $DataClassName[0];
-		$DataClassNameList = new System.Collections.Generic.List<$DataClassName>( dataArray );
+
     }
     
     //

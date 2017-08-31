@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.IO;
+using UnityQuickSheet;
 
 ///
 /// !!! Machine generated code !!!
@@ -22,8 +23,8 @@ public class CharacterCCAssetPostprocessor : AssetPostprocessor
             CharacterCC data = (CharacterCC)AssetDatabase.LoadAssetAtPath (assetFilePath, typeof(CharacterCC));
             if (data == null) {
                 data = ScriptableObject.CreateInstance<CharacterCC> ();
-                data.sheetName = filePath;
-                data.worksheetName = sheetName;
+                data.SheetName = filePath;
+                data.WorksheetName = sheetName;
                 AssetDatabase.CreateAsset ((ScriptableObject)data, assetFilePath);
                 //data.hideFlags = HideFlags.NotEditable;
             }
@@ -37,7 +38,7 @@ public class CharacterCCAssetPostprocessor : AssetPostprocessor
             if (query != null && query.IsValid())
             {
                 data.dataArray = query.Deserialize<CharacterCCData>().ToArray();
-
+                data.dataList = query.Deserialize<CharacterCCData>();
                 ScriptableObject obj = AssetDatabase.LoadAssetAtPath (assetFilePath, typeof(ScriptableObject)) as ScriptableObject;
                 EditorUtility.SetDirty (obj);
             }

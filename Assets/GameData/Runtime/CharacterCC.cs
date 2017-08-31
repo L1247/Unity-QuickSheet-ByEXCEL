@@ -13,30 +13,15 @@ using System.Collections.Generic;
 public class CharacterCC : ScriptableObject 
 {	
     [HideInInspector] [SerializeField] 
-    public string sheetName = "";
+    public string SheetName = "";
     
     [HideInInspector] [SerializeField] 
-    public string worksheetName = "";
-    
-    [ExposeProperty]
-    public string SheetName 
-    {
-        get { return sheetName; }
-        set { sheetName = value;}
-    }
-    
-    [ExposeProperty]
-    public string WorksheetName
-    {
-        get { return worksheetName; }
-        set { worksheetName = value;}
-    }
+    public string WorksheetName = "";
     
     // Note: initialize in OnEnable() not here.
     public CharacterCCData[] dataArray;
+    public List<CharacterCCData> dataList;
     
-	public List<CharacterCCData> CharacterCCDataList;
-
     void OnEnable()
     {		
 //#if UNITY_EDITOR
@@ -49,7 +34,7 @@ public class CharacterCC : ScriptableObject
         // 		
         if (dataArray == null)
             dataArray = new CharacterCCData[0];
-		CharacterCCDataList = new System.Collections.Generic.List<CharacterCCData>( dataArray );
+
     }
     
     //

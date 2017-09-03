@@ -15,7 +15,6 @@ public class GameMain : MonoBehaviour {
         {
             print( "Int Have Bug 不只不能用int,而且不能有空白 : " + CharacterCC_Data[ i ].Int_have_bug );
         }
-
     }
 
     // Update is called once per frame

@@ -28,8 +28,6 @@ public class UnitTest_Formula : MonoBehaviour
         // Specify skill level
         playerStatus.SkillLevel = 4;
 
-        CalculationEngine calculator = new CalculationEngine();
-
         // CalcEngine uses Reflection to access the properties of the PlayderData object
         // so they can be used in expressions.
         calculator.DataContext = playerStatus;
@@ -53,8 +51,10 @@ public class UnitTest_Formula : MonoBehaviour
     // A helper function to retrieve formula data with the given formula name.
     string GetFormula ( string formulaName )
     {
-        string formulaString = fighterFormula.dataArray.Where( e => e.Stat == formulaName )
-                                        .FirstOrDefault().Formula;
+        //string formulaString = fighterFormula.dataArray.Where( e => e.Stat == formulaName )
+        //                                .FirstOrDefault().Formula;
+        string formulaString = fighterFormula.dataList.Find( e => e.Stat == formulaName )
+                                        .Formula;
         print( formulaString );
         return formulaString;
     }

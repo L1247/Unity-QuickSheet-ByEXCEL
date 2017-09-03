@@ -13,3 +13,14 @@ https://github.com/L1247/Unity-QuickSheet-ByEXCEL/blob/master/QuickSheet.unitypa
 
 本程式碼Youtube影片步驟教學
 https://youtu.be/v7feTtS9JvY
+
+
+* FaceBook 粉絲專頁的相關教學連結
+
+* 關於 以前的教學-簡易快速Excel資料讀取之Unity跨平台遊戲應用 的範例專案：https://goo.gl/B6sZqx
+
+* 簡易快速Excel資料讀取之Unity跨平台遊戲應用 - 公式轉換 補充(1) :https://goo.gl/GbzDSD
+
+* 簡易快速Excel資料讀取之Unity跨平台遊戲應用 - 公式轉換 補充(2) : https://goo.gl/EDjkec
+
+* 簡易快速Excel資料讀取之Unity跨平台遊戲應用 - 補充(3) : https://goo.gl/7KRXcP
